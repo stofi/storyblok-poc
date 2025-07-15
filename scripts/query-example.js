@@ -1,36 +1,24 @@
-import dotenv from 'dotenv';
-import { storyblokInit, apiPlugin } from '@storyblok/js';
+import { createDeliveryClient } from '../src/config/storyblok.js';
+import { 
+  getAllPosts, 
+  getFeaturedPosts, 
+  getPostsByCategory, 
+  getPostsByTag, 
+  getRecentPosts,
+  getPostBySlug 
+} from '../src/utils/query-helpers.js';
 
-dotenv.config();
-
-// Initialize Storyblok
-const { storyblokApi } = storyblokInit({
-  accessToken: process.env.STORYBLOK_PREVIEW_TOKEN, // Use preview token to see draft content
-  use: [apiPlugin],
-  cache: {
-    clear: 'auto',
-    type: 'memory'
-  },
-  apiOptions: {
-    version: 'draft' // Use draft version to see unpublished content
-  }
-});
+// Initialize Storyblok client
+const storyblokApi = createDeliveryClient();
 
 // Query Examples
 async function runQueryExamples() {
-  console.log('🔍 Storyblok Query Examples\n');
+  console.log('🔍 Storyblok Query Examples\\n');
 
   try {
     // Example 1: Get all blog posts
     console.log('1️⃣  All blog posts:');
-    const allPosts = await storyblokApi.get('cdn/stories', {
-      filter_query: {
-        component: {
-          in: 'blog_post'
-        }
-      },
-      sort_by: 'content.publication_date:desc'
-    });
+    const allPosts = await getAllPosts(storyblokApi);
     
     console.log(`   Found ${allPosts.data.stories.length} blog posts total`);
     allPosts.data.stories.forEach((story, index) => {
@@ -38,17 +26,8 @@ async function runQueryExamples() {
     });
 
     // Example 2: Get featured posts only
-    console.log('\n2️⃣  Featured posts only:');
-    const featuredPosts = await storyblokApi.get('cdn/stories', {
-      filter_query: {
-        component: {
-          in: 'blog_post'
-        },
-        featured: {
-          is: true
-        }
-      }
-    });
+    console.log('\\n2️⃣  Featured posts only:');
+    const featuredPosts = await getFeaturedPosts(storyblokApi);
     
     console.log(`   Found ${featuredPosts.data.stories.length} featured posts`);
     featuredPosts.data.stories.forEach(story => {
@@ -56,17 +35,8 @@ async function runQueryExamples() {
     });
 
     // Example 3: Get posts by category
-    console.log('\n3️⃣  Technology posts:');
-    const techPosts = await storyblokApi.get('cdn/stories', {
-      filter_query: {
-        component: {
-          in: 'blog_post'
-        },
-        category: {
-          in: 'technology'
-        }
-      }
-    });
+    console.log('\\n3️⃣  Technology posts:');
+    const techPosts = await getPostsByCategory(storyblokApi, 'technology');
     
     console.log(`   Found ${techPosts.data.stories.length} technology posts`);
     techPosts.data.stories.forEach(story => {
@@ -74,17 +44,8 @@ async function runQueryExamples() {
     });
 
     // Example 4: Get posts by tags
-    console.log('\n4️⃣  Posts tagged with "javascript":');
-    const jsPosts = await storyblokApi.get('cdn/stories', {
-      filter_query: {
-        component: {
-          in: 'blog_post'
-        },
-        tags: {
-          in_array: 'javascript'
-        }
-      }
-    });
+    console.log('\\n4️⃣  Posts tagged with "javascript":');
+    const jsPosts = await getPostsByTag(storyblokApi, 'javascript');
     
     console.log(`   Found ${jsPosts.data.stories.length} JavaScript posts`);
     jsPosts.data.stories.forEach(story => {
@@ -92,7 +53,7 @@ async function runQueryExamples() {
     });
 
     // Example 5: Get posts by date range
-    console.log('\n5️⃣  Posts published after February 1, 2024:');
+    console.log('\\n5️⃣  Posts published after February 1, 2024:');
     const recentPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -111,7 +72,7 @@ async function runQueryExamples() {
     });
 
     // Example 6: Complex query - Featured tech posts with specific tags
-    console.log('\n6️⃣  Featured technology posts with React or Node.js tags:');
+    console.log('\\n6️⃣  Featured technology posts with React or Node.js tags:');
     const complexQuery = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -135,7 +96,7 @@ async function runQueryExamples() {
     });
 
     // Example 7: Search by text content
-    console.log('\n7️⃣  Posts with "API" in the title:');
+    console.log('\\n7️⃣  Posts with "API" in the title:');
     const apiPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -153,7 +114,7 @@ async function runQueryExamples() {
     });
 
     // Example 8: Get posts by specific author
-    console.log('\n8️⃣  Posts by Jane Smith:');
+    console.log('\\n8️⃣  Posts by Jane Smith:');
     const authorPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -171,7 +132,7 @@ async function runQueryExamples() {
     });
 
     // Example 9: Pagination example
-    console.log('\n9️⃣  Pagination example (first 2 posts):');
+    console.log('\\n9️⃣  Pagination example (first 2 posts):');
     const paginatedPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -189,17 +150,17 @@ async function runQueryExamples() {
     });
 
     // Example 10: Get single post by slug
-    console.log('\n🔟 Get single post by slug:');
+    console.log('\\n🔟 Get single post by slug:');
     try {
-      const singlePost = await storyblokApi.get('cdn/stories/getting-started-storyblok');
+      const singlePost = await getPostBySlug(storyblokApi, 'getting-started-storyblok');
       console.log(`   📖 Found: ${singlePost.data.story.content.title}`);
       console.log(`   📝 Excerpt: ${singlePost.data.story.content.excerpt}`);
     } catch (error) {
       console.log('   ❌ Post not found or not published yet');
     }
 
-    console.log('\n✅ All query examples completed!');
-    console.log('\n💡 Pro tips:');
+    console.log('\\n✅ All query examples completed!');
+    console.log('\\n💡 Pro tips:');
     console.log('   - Use "gt_date", "lt_date" for date ranges');
     console.log('   - Use "in_array" for multi-select fields like tags');
     console.log('   - Use "like" with wildcards (*) for text search');
@@ -210,54 +171,17 @@ async function runQueryExamples() {
     console.error('❌ Error running queries:', error.response?.data || error.message);
     
     if (error.response?.status === 401) {
-      console.log('\n🔑 Check your STORYBLOK_PREVIEW_TOKEN in .env file');
+      console.log('\\n🔑 Check your STORYBLOK_PREVIEW_TOKEN in .env file');
     }
   }
-}
-
-// Additional utility functions for common patterns
-async function getPostsByCategory(category) {
-  return await storyblokApi.get('cdn/stories', {
-    filter_query: {
-      component: { in: 'blog_post' },
-      category: { in: category }
-    }
-  });
-}
-
-async function getFeaturedPosts() {
-  return await storyblokApi.get('cdn/stories', {
-    filter_query: {
-      component: { in: 'blog_post' },
-      featured: { is: true }
-    }
-  });
-}
-
-async function getPostsByTag(tag) {
-  return await storyblokApi.get('cdn/stories', {
-    filter_query: {
-      component: { in: 'blog_post' },
-      tags: { in_array: tag }
-    }
-  });
-}
-
-async function getRecentPosts(limit = 5) {
-  return await storyblokApi.get('cdn/stories', {
-    filter_query: {
-      component: { in: 'blog_post' }
-    },
-    sort_by: 'content.publication_date:desc',
-    per_page: limit
-  });
 }
 
 // Export utility functions
 export {
   runQueryExamples,
-  getPostsByCategory,
+  getAllPosts,
   getFeaturedPosts,
+  getPostsByCategory,
   getPostsByTag,
   getRecentPosts
 };
