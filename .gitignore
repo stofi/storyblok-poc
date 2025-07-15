@@ -125,3 +125,6 @@ Thumbs.db
 build/
 dist/
 out/
+
+# Storyblok
+.storyblok/
