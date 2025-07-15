@@ -15,7 +15,7 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
 
 1. **Install dependencies:**
    ```bash
-   npm install
+   yarn install
    ```
 
 2. **Configure environment:**
@@ -25,21 +25,22 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
    
    Then edit `.env` with your Storyblok credentials:
    - `STORYBLOK_SPACE_ID`: Found in Settings > General
-   - `STORYBLOK_MANAGEMENT_TOKEN`: Create in Settings > Access Tokens (needs write access)
-   - `STORYBLOK_PREVIEW_TOKEN`: Found in Settings > Access Tokens (preview access)
+   - `STORYBLOK_MANAGEMENT_TOKEN`: Create in Account settings > Personal access token (for creating content)
+   - `STORYBLOK_PREVIEW_TOKEN`: Found in Settings > Access Tokens (for querying content)
+   - `STORYBLOK_PUBLIC_TOKEN`: Found in Settings > Access Tokens (for published content only)
 
 3. **Run the setup:**
    ```bash
-   npm run setup
+   yarn setup
    ```
    
    This will:
    - Create the "Blog Post" content type
-   - Add 4 sample blog posts
+   - Add sample blog posts
 
 4. **Test querying:**
    ```bash
-   npm run query
+   yarn query
    ```
 
 ## What Gets Created
@@ -56,7 +57,7 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
 - **Content** (rich text, required)
 
 ### Sample Data
-4 blog posts with different categories, tags, and publication dates to test various query scenarios.
+Sample blog posts with different categories, tags, and publication dates to test various query scenarios.
 
 ## Query Examples
 
@@ -127,8 +128,22 @@ storyblok-poc/
 ├── package.json          # Dependencies and scripts
 ├── .env.example          # Environment variables template
 ├── .env                  # Your actual environment variables
-├── setup.js              # Creates content types and sample data
-├── query-examples.js     # Demonstrates various query patterns
+├── index.js              # Main entry point
+├── scripts/
+│   ├── setup.js          # Creates content types and sample data
+│   ├── query-example.js  # Demonstrates various query patterns
+│   ├── debug-components.js # Debug utility for components
+│   └── debug-stories.js  # Debug utility for stories
+├── src/
+│   ├── config/
+│   │   └── storyblok.js  # Storyblok client configuration
+│   ├── data/
+│   │   └── mock-posts.js # Sample blog post data
+│   ├── models/
+│   │   └── blog-post.js  # Blog post content type definition
+│   └── utils/
+│       └── query-helpers.js # Query utility functions
+├── yarn.lock             # Yarn lockfile
 └── README.md            # This file
 ```
 
@@ -136,11 +151,11 @@ storyblok-poc/
 
 This POC helps you evaluate:
 
-✅ **Content Modeling**: Can you define the content structure you need?
-✅ **Data Management**: How easy is it to create and manage content programmatically?
-✅ **Query Flexibility**: Can you filter and retrieve content the way your application needs?
-✅ **Developer Experience**: How straightforward is the API and SDK?
-✅ **Performance**: How fast are the queries? (Test with more data for real assessment)
+- ✅ **Content Modeling**: Can you define the content structure you need?
+- ✅ **Data Management**: How easy is it to create and manage content programmatically?
+- ✅ **Query Flexibility**: Can you filter and retrieve content the way your application needs?
+- ✅ **Developer Experience**: How straightforward is the API and SDK?
+- ✅ **Performance**: How fast are the queries? (Test with more data for real assessment)
 
 ## Next Steps
 
@@ -158,6 +173,12 @@ If this POC meets your needs, consider:
 - **422 Content already exists**: The setup script handles this gracefully
 - **Rate limiting**: The management API has rate limits; add delays if needed
 - **Content not found**: Make sure to publish content or use the preview token
+
+## Additional Scripts
+
+- **Debug Components**: `yarn start scripts/debug-components.js` - Lists all components in your space
+- **Debug Stories**: `yarn start scripts/debug-stories.js` - Lists all stories in your space
+- **Main Entry**: `yarn start` - Runs the main index.js file
 
 ## Resources
 
