@@ -20,7 +20,10 @@ async function createBlogPostContentType() {
     return response.data.component;
 
   } catch (error) {
-    if (error.response?.status === 422 && error.response?.data?.error?.includes('already exists')) {
+    if (error.response?.status === 422 && (
+      error.response?.data?.error?.includes('already exists') ||
+      error.response?.data?.name?.includes('has already been taken')
+    )) {
       console.log('ℹ️  Blog Post content type already exists, skipping creation.');
       return null;
     }

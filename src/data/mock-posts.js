@@ -3,12 +3,14 @@
  * Sample data for testing and demonstration purposes
  */
 
+import { BLOG_POST_COMPONENT } from '../models/blog-post.js';
+
 export const mockPosts = [
   {
     name: 'Getting Started with Storyblok',
     slug: 'getting-started-storyblok',
     content: {
-      component: 'blog_post',
+      component: BLOG_POST_COMPONENT,
       title: 'Getting Started with Storyblok',
       slug: 'getting-started-storyblok',
       author: 'John Doe',
@@ -37,7 +39,7 @@ export const mockPosts = [
     name: 'Advanced React Patterns',
     slug: 'advanced-react-patterns',
     content: {
-      component: 'blog_post',
+      component: BLOG_POST_COMPONENT,
       title: 'Advanced React Patterns',
       slug: 'advanced-react-patterns',
       author: 'Jane Smith',
@@ -66,7 +68,7 @@ export const mockPosts = [
     name: 'Building APIs with Node.js',
     slug: 'building-apis-nodejs',
     content: {
-      component: 'blog_post',
+      component: BLOG_POST_COMPONENT,
       title: 'Building APIs with Node.js',
       slug: 'building-apis-nodejs',
       author: 'Mike Johnson',
@@ -95,7 +97,7 @@ export const mockPosts = [
     name: 'UI/UX Design Principles',
     slug: 'ui-ux-design-principles',
     content: {
-      component: 'blog_post',
+      component: BLOG_POST_COMPONENT,
       title: 'UI/UX Design Principles',
       slug: 'ui-ux-design-principles',
       author: 'Sarah Wilson',

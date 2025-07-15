@@ -3,8 +3,11 @@
  * Defines the structure and fields for blog posts in Storyblok
  */
 
+export const BLOG_POST_COMPONENT = 'blog_post';
+
 export const blogPostSchema = {
-  name: 'Blog Post',
+  name: BLOG_POST_COMPONENT,
+  display_name: 'Blog Post',
   schema: {
     title: {
       type: 'text',

@@ -3,6 +3,8 @@
  * Reusable functions for common Storyblok queries
  */
 
+import { BLOG_POST_COMPONENT } from '../models/blog-post.js';
+
 /**
  * Get posts by category
  * @param {Object} storyblokApi - Storyblok API client
@@ -12,7 +14,7 @@
 export async function getPostsByCategory(storyblokApi, category) {
   return await storyblokApi.get('cdn/stories', {
     filter_query: {
-      component: { in: 'blog_post' },
+      component: { in: BLOG_POST_COMPONENT },
       category: { in: category }
     }
   });
@@ -26,7 +28,7 @@ export async function getPostsByCategory(storyblokApi, category) {
 export async function getFeaturedPosts(storyblokApi) {
   return await storyblokApi.get('cdn/stories', {
     filter_query: {
-      component: { in: 'blog_post' },
+      component: { in: BLOG_POST_COMPONENT },
       featured: { is: true }
     }
   });
@@ -41,7 +43,7 @@ export async function getFeaturedPosts(storyblokApi) {
 export async function getPostsByTag(storyblokApi, tag) {
   return await storyblokApi.get('cdn/stories', {
     filter_query: {
-      component: { in: 'blog_post' },
+      component: { in: BLOG_POST_COMPONENT },
       tags: { in_array: tag }
     }
   });

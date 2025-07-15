@@ -14,7 +14,7 @@ export {
 } from './src/config/storyblok.js';
 
 // Models
-export { blogPostSchema } from './src/models/blog-post.js';
+export { blogPostSchema, BLOG_POST_COMPONENT } from './src/models/blog-post.js';
 
 // Data
 export { mockPosts } from './src/data/mock-posts.js';
