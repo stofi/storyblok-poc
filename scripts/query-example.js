@@ -13,7 +13,7 @@ const storyblokApi = createDeliveryClient();
 
 // Query Examples
 async function runQueryExamples() {
-  console.log('🔍 Storyblok Query Examples\\n');
+  console.log('🔍 Storyblok Query Examples');
 
   try {
     // Example 1: Get all blog posts
@@ -26,7 +26,7 @@ async function runQueryExamples() {
     });
 
     // Example 2: Get featured posts only
-    console.log('\\n2️⃣  Featured posts only:');
+    console.log('2️⃣  Featured posts only:');
     const featuredPosts = await getFeaturedPosts(storyblokApi);
     
     console.log(`   Found ${featuredPosts.data.stories.length} featured posts`);
@@ -35,7 +35,7 @@ async function runQueryExamples() {
     });
 
     // Example 3: Get posts by category
-    console.log('\\n3️⃣  Technology posts:');
+    console.log('3️⃣  Technology posts:');
     const techPosts = await getPostsByCategory(storyblokApi, 'technology');
     
     console.log(`   Found ${techPosts.data.stories.length} technology posts`);
@@ -44,7 +44,7 @@ async function runQueryExamples() {
     });
 
     // Example 4: Get posts by tags
-    console.log('\\n4️⃣  Posts tagged with "javascript":');
+    console.log('4️⃣  Posts tagged with "javascript":');
     const jsPosts = await getPostsByTag(storyblokApi, 'javascript');
     
     console.log(`   Found ${jsPosts.data.stories.length} JavaScript posts`);
@@ -53,7 +53,7 @@ async function runQueryExamples() {
     });
 
     // Example 5: Get posts by date range
-    console.log('\\n5️⃣  Posts published after February 1, 2024:');
+    console.log('5️⃣  Posts published after February 1, 2024:');
     const recentPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -72,7 +72,7 @@ async function runQueryExamples() {
     });
 
     // Example 6: Complex query - Featured tech posts with specific tags
-    console.log('\\n6️⃣  Featured technology posts with React or Node.js tags:');
+    console.log('6️⃣  Featured technology posts with React or Node.js tags:');
     const complexQuery = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -96,7 +96,7 @@ async function runQueryExamples() {
     });
 
     // Example 7: Search by text content
-    console.log('\\n7️⃣  Posts with "API" in the title:');
+    console.log('7️⃣  Posts with "API" in the title:');
     const apiPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -114,7 +114,7 @@ async function runQueryExamples() {
     });
 
     // Example 8: Get posts by specific author
-    console.log('\\n8️⃣  Posts by Jane Smith:');
+    console.log('8️⃣  Posts by Jane Smith:');
     const authorPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -132,7 +132,7 @@ async function runQueryExamples() {
     });
 
     // Example 9: Pagination example
-    console.log('\\n9️⃣  Pagination example (first 2 posts):');
+    console.log('9️⃣  Pagination example (first 2 posts):');
     const paginatedPosts = await storyblokApi.get('cdn/stories', {
       filter_query: {
         component: {
@@ -150,7 +150,7 @@ async function runQueryExamples() {
     });
 
     // Example 10: Get single post by slug
-    console.log('\\n🔟 Get single post by slug:');
+    console.log('🔟 Get single post by slug:');
     try {
       const singlePost = await getPostBySlug(storyblokApi, 'getting-started-storyblok');
       console.log(`   📖 Found: ${singlePost.data.story.content.title}`);
@@ -159,8 +159,8 @@ async function runQueryExamples() {
       console.log('   ❌ Post not found or not published yet');
     }
 
-    console.log('\\n✅ All query examples completed!');
-    console.log('\\n💡 Pro tips:');
+    console.log('✅ All query examples completed!');
+    console.log('💡 Pro tips:');
     console.log('   - Use "gt_date", "lt_date" for date ranges');
     console.log('   - Use "in_array" for multi-select fields like tags');
     console.log('   - Use "like" with wildcards (*) for text search');
@@ -171,7 +171,7 @@ async function runQueryExamples() {
     console.error('❌ Error running queries:', error.response?.data || error.message);
     
     if (error.response?.status === 401) {
-      console.log('\\n🔑 Check your STORYBLOK_PREVIEW_TOKEN in .env file');
+      console.log('🔑 Check your STORYBLOK_PREVIEW_TOKEN in .env file');
     }
   }
 }

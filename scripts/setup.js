@@ -31,7 +31,7 @@ async function createBlogPostContentType() {
 
 // Create mock blog posts
 async function createMockBlogPosts() {
-  console.log('\\n📝 Creating mock blog posts...');
+  console.log('📝 Creating mock blog posts...');
 
   const createdPosts = [];
 
@@ -63,7 +63,7 @@ async function createMockBlogPosts() {
 
 // Main setup function
 async function setup() {
-  console.log('🚀 Setting up Storyblok POC...\\n');
+  console.log('🚀 Setting up Storyblok POC...');
 
   // Validate environment variables
   try {
@@ -91,13 +91,13 @@ async function setup() {
     // Step 2: Create mock data
     await createMockBlogPosts();
 
-    console.log('\\n✅ Setup completed successfully!');
-    console.log('\\nNext steps:');
+    console.log('✅ Setup completed successfully!');
+    console.log('Next steps:');
     console.log('1. Run "npm run query" to see query examples');
     console.log('2. Check your Storyblok space to see the created content');
     
   } catch (error) {
-    console.error('\\n❌ Setup failed:', error.message);
+    console.error('❌ Setup failed:', error.message);
     process.exit(1);
   }
 }
