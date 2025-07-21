@@ -74,6 +74,15 @@ export const blogPostSchema = {
       pos: 8,
       display_name: 'Content',
       required: true
+    },
+    gallery: {
+      type: 'bloks',
+      pos: 9,
+      restrict_type: '',
+      restrict_components: true,
+      component_whitelist: ['gallery'],
+      minimum: 0,
+      maximum: 1
     }
   }
 };

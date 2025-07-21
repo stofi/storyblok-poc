@@ -4,6 +4,7 @@
  */
 
 import { BLOG_POST_COMPONENT } from '../models/blog-post.js';
+import { GALLERY_COMPONENT, GALLERY_ITEM_IMAGE_COMPONENT, GALLERY_ITEM_VIDEO_COMPONENT } from '../models/gallery.js';
 
 export const mockPosts = [
   {
@@ -32,7 +33,49 @@ export const mockPosts = [
             ]
           }
         ]
-      }
+      },
+      gallery: [
+        {
+          component: GALLERY_COMPONENT,
+          _uid: 'gallery-1',
+          items: [
+            {
+              component: GALLERY_ITEM_IMAGE_COMPONENT,
+              _uid: 'gallery-item-1',
+              image: {
+                id: 123456,
+                filename: 'https://a.storyblok.com/f/123456/1920x1080/abc123/storyblok-setup.jpg',
+                name: 'Storyblok Setup',
+                focus: null,
+                title: 'Storyblok Setup Screenshot',
+                alt: 'Screenshot of Storyblok setup process'
+              },
+              caption: 'Initial Storyblok setup screen'
+            },
+            {
+              component: GALLERY_ITEM_VIDEO_COMPONENT,
+              _uid: 'gallery-item-2',
+              source: {
+                id: '789012',
+                url: 'https://www.youtube.com/watch?v=example',
+                linktype: 'url',
+                cached_url: 'https://www.youtube.com/watch?v=example'
+              },
+              caption: 'Video tutorial on Storyblok basics',
+              poster: {
+                id: 234567,
+                filename: 'https://a.storyblok.com/f/123456/1920x1080/def456/video-poster.jpg',
+                name: 'Video Poster',
+                focus: null,
+                title: 'Tutorial Video Poster',
+                alt: 'Poster image for video tutorial'
+              },
+              width: 1920,
+              height: 1080
+            }
+          ]
+        }
+      ]
     }
   },
   {

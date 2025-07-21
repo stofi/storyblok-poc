@@ -1,7 +1,7 @@
 # Storyblok POC
 
 This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK to:
-1. Define custom content types (Blog Post)
+1. Define custom content types (Blog Post, Gallery, Page)
 2. Create and push mock data
 3. Query content with various filters
 
@@ -35,8 +35,8 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
    ```
    
    This will:
-   - Create the "Blog Post" content type
-   - Add sample blog posts
+   - Create all content types (Page, Gallery, Gallery Items, Blog Post)
+   - Add sample blog posts with gallery examples
 
 4. **Test querying:**
    ```bash
@@ -45,7 +45,12 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
 
 ## What Gets Created
 
-### Content Type: Blog Post
+### Content Types
+
+#### Page (Root Component)
+- **Body** (blocks) - Container for nested components
+
+#### Blog Post
 - **Title** (text, required)
 - **Slug** (text, required)
 - **Author** (text, required)
@@ -55,6 +60,21 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
 - **Featured** (boolean)
 - **Excerpt** (textarea)
 - **Content** (rich text, required)
+- **Gallery** (blocks, max 1) - Optional gallery component
+
+#### Gallery
+- **Items** (blocks, min 1) - Collection of gallery items (images or videos)
+
+#### Gallery Item Image
+- **Image** (asset, images only)
+- **Caption** (text)
+
+#### Gallery Item Video
+- **Source** (multilink) - Video URL
+- **Caption** (text)
+- **Poster** (asset, images only) - Video thumbnail
+- **Width** (number)
+- **Height** (number)
 
 ### Sample Data
 Sample blog posts with different categories, tags, and publication dates to test various query scenarios.

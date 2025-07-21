@@ -1,34 +1,44 @@
 import { createManagementClient, getSpaceId, validateEnvironment } from '../src/config/storyblok.js';
 import { blogPostSchema } from '../src/models/blog-post.js';
+import { gallerySchema, galleryItemImageSchema, galleryItemVideoSchema } from '../src/models/gallery.js';
+import { pageSchema } from '../src/models/page.js';
 import { mockPosts } from '../src/data/mock-posts.js';
 
 // Initialize management client and get space ID
 const storyblokApi = createManagementClient();
 const SPACE_ID = getSpaceId();
 
-// Create the Blog Post Content Type
-async function createBlogPostContentType() {
-  try {
-    console.log('🔧 Creating Blog Post content type...');
+// Create all component types
+async function createComponents() {
+  const components = [
+    { schema: pageSchema, name: 'Page' },
+    { schema: galleryItemImageSchema, name: 'Gallery Item Image' },
+    { schema: galleryItemVideoSchema, name: 'Gallery Item Video' },
+    { schema: gallerySchema, name: 'Gallery' },
+    { schema: blogPostSchema, name: 'Blog Post' }
+  ];
 
-    const response = await storyblokApi.post(`spaces/${SPACE_ID}/components`, {
-      component: blogPostSchema
-    });
+  console.log('🔧 Creating component types...');
+  
+  for (const { schema, name } of components) {
+    try {
+      const response = await storyblokApi.post(`spaces/${SPACE_ID}/components`, {
+        component: schema
+      });
 
-    console.log('✅ Blog Post content type created successfully!');
-    console.log(`   Component ID: ${response.data.component.id}`);
-    return response.data.component;
-
-  } catch (error) {
-    if (error.response?.status === 422 && (
-      error.response?.data?.error?.includes('already exists') ||
-      error.response?.data?.name?.includes('has already been taken')
-    )) {
-      console.log('ℹ️  Blog Post content type already exists, skipping creation.');
-      return null;
+      console.log(`✅ ${name} component created successfully!`);
+      console.log(`   Component ID: ${response.data.component.id}`);
+    } catch (error) {
+      if (error.response?.status === 422 && (
+        error.response?.data?.error?.includes('already exists') ||
+        error.response?.data?.name?.includes('has already been taken')
+      )) {
+        console.log(`ℹ️  ${name} component already exists, skipping creation.`);
+      } else {
+        console.error(`❌ Error creating ${name} component:`, error.response?.data || error.message);
+        throw error;
+      }
     }
-    console.error('❌ Error creating content type:', error.response?.data || error.message);
-    throw error;
   }
 }
 
@@ -88,8 +98,8 @@ async function setup() {
     console.log(`✅ Connected to space: ${testResponse.data.space.name}`);
     console.log('');
 
-    // Step 1: Create content type
-    await createBlogPostContentType();
+    // Step 1: Create all components
+    await createComponents();
 
     // Step 2: Create mock data
     await createMockBlogPosts();
