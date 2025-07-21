@@ -1,0 +1,23 @@
+{
+  "assets": {
+    "photo-1.jpg": {
+      "id": 71410712191201,
+      "hash": "f1993dc861cab4046fa195b291e37c1a97dcc7b53898905d9241acbdb54d2af5",
+      "filename": "https://s3.amazonaws.com/a.storyblok.com/f/285794549031161/e6bcbf6912/photo-1.jpg",
+      "uploadedAt": "2025-07-21T18:50:57.727Z"
+    },
+    "photo-2.jpg": {
+      "id": 71410720243938,
+      "hash": "513073ccff8f14abb3824692e5fb4c3b9501d5a1a39020b517ce16fa76511539",
+      "filename": "https://s3.amazonaws.com/a.storyblok.com/f/285794549031161/df31e63720/photo-2.jpg",
+      "uploadedAt": "2025-07-21T18:50:59.728Z"
+    },
+    "photo-3.jpg": {
+      "id": 71410728345827,
+      "hash": "8baa4b0ee69ad9e9a3b6a9295256a11b6834adbadc46f28947f44c61cd9e9578",
+      "filename": "https://s3.amazonaws.com/a.storyblok.com/f/285794549031161/e21a5a7e11/photo-3.jpg",
+      "uploadedAt": "2025-07-21T18:51:01.254Z"
+    }
+  },
+  "lastSync": "2025-07-21T18:53:27.844Z"
+}

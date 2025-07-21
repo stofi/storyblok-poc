@@ -3,13 +3,16 @@
   "dependencies": {
     "@storyblok/js": "^4.2.0",
     "dotenv": "^17.2.0",
+    "form-data": "^4.0.4",
     "storyblok": "^4.1.0",
     "storyblok-generate-ts": "^2.2.0"
   },
   "scripts": {
     "start": "node index.js",
     "setup": "node scripts/setup.js",
-    "query": "node scripts/query-example.js"
+    "query": "node scripts/query-example.js",
+    "upload-assets": "node scripts/upload-assets.js",
+    "create-posts-with-images": "node scripts/create-posts-with-images.js"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

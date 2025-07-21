@@ -43,6 +43,20 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
    yarn query
    ```
 
+5. **Upload images to Storyblok:**
+   ```bash
+   yarn upload-assets
+   ```
+   
+   This will upload all images from the `media` folder to Storyblok's asset manager.
+
+6. **Create blog posts with uploaded images:**
+   ```bash
+   yarn create-posts-with-images
+   ```
+   
+   This creates sample blog posts that include galleries with the uploaded images.
+
 ## What Gets Created
 
 ### Content Types
@@ -77,7 +91,27 @@ This is a proof of concept demonstrating how to use Storyblok's JavaScript SDK t
 - **Height** (number)
 
 ### Sample Data
-Sample blog posts with different categories, tags, and publication dates to test various query scenarios.
+- **Mock posts** - Sample blog posts with different categories, tags, and publication dates
+- **Real image uploads** - When using the upload scripts, actual images are uploaded to Storyblok and used in galleries
+
+## Asset Upload Workflow
+
+The repository includes scripts for uploading real images to Storyblok:
+
+### 1. Asset Upload Process
+The upload follows Storyblok's 3-step process:
+1. **Request signed response** - Get upload permissions from Storyblok
+2. **Upload to S3** - Send file to Amazon S3 using signed request
+3. **Finalize upload** - Complete the process and get asset metadata
+
+### 2. Available Scripts
+- `yarn upload-assets` - Uploads all images from the `media` folder
+- `yarn create-posts-with-images` - Creates blog posts using uploaded images
+
+### 3. Image Management
+- Uploaded images are served via AWS CloudFront CDN
+- Asset metadata is saved to `src/data/uploaded-assets.json` for reuse
+- Images can be organized into folders in Storyblok's asset manager
 
 ## Query Examples
 
